@@ -1,0 +1,7 @@
+matplotlib
+numpy
+scipy
+sklearn
+DataModelDict
+pybrain
+memory_profiler
