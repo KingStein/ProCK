@@ -38,8 +38,6 @@ class ComputerForward(GameBar):
         self.position = round(self.position)
         if self.next_position != self.position:
             if 0 <= self.next_position <= MAX_POS_FORWARD:
-                print(self.v_bar)
-                print(self.stop_flag)
                 if self.next_position > self.position:
                    if self.stop_flag:
                        self.v_bar = self.v_bar - BAR_ACC * SIMULATION_TIME_STEP
