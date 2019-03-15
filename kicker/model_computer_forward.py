@@ -39,6 +39,7 @@ class ComputerForward(GameBar):
         if self.next_position != self.position:
             if 0 <= self.next_position <= MAX_POS_FORWARD:
                 print(self.v_bar)
+                print(self.stop_flag)
                 if self.next_position > self.position:
                    if self.stop_flag:
                        self.v_bar = self.v_bar - BAR_ACC * SIMULATION_TIME_STEP
@@ -60,18 +61,20 @@ class ComputerForward(GameBar):
                             if (self.next_position - self.position) < x_stop:
                                 self.stop_flag = True
 
+
                         elif self.v_bar == BAR_SPEED:
-                            new_temp_pos = self.v_bar * SIMULATION_TIME_STEP
+                            new_temp_pos = self.position + self.v_bar * SIMULATION_TIME_STEP
                             x_stop = (self.v_bar * self.v_bar) / (2 * BAR_ACC)
                             if (self.next_position - self.position) < x_stop:
                                 self.stop_flag = True
+
 
                         self.position = new_temp_pos
 
                 elif self.next_position < self.position:
                     if self.stop_flag:
                         self.v_bar = self.v_bar + BAR_ACC * SIMULATION_TIME_STEP
-                        new_temp_pos = self.position - self.v_bar * SIMULATION_TIME_STEP + 0.5 * BAR_ACC * (SIMULATION_TIME_STEP * SIMULATION_TIME_STEP)
+                        new_temp_pos = self.position + self.v_bar * SIMULATION_TIME_STEP + 0.5 * BAR_ACC * (SIMULATION_TIME_STEP * SIMULATION_TIME_STEP)
                         self.position = new_temp_pos
                         if new_temp_pos < self.next_position:
                             self.position = self.next_position
@@ -84,13 +87,13 @@ class ComputerForward(GameBar):
                             self.v_bar = self.v_bar - BAR_ACC * SIMULATION_TIME_STEP
                             if self.v_bar < -BAR_SPEED:
                                 self.v_bar = -BAR_SPEED
-                            new_temp_pos = self.position - self.v_bar * SIMULATION_TIME_STEP - 0.5 * BAR_ACC * (SIMULATION_TIME_STEP * SIMULATION_TIME_STEP)
+                            new_temp_pos = self.position + self.v_bar * SIMULATION_TIME_STEP - 0.5 * BAR_ACC * (SIMULATION_TIME_STEP * SIMULATION_TIME_STEP)
                             x_stop = (self.v_bar * self.v_bar) / (2 * BAR_ACC)
                             if (self.position - self.next_position) < x_stop:
                                 self.stop_flag = True
 
                         elif self.v_bar == BAR_SPEED:
-                            new_temp_pos = self.v_bar * SIMULATION_TIME_STEP
+                            new_temp_pos = self.position + self.v_bar * SIMULATION_TIME_STEP
                             x_stop = (self.v_bar * self.v_bar) / (2 * BAR_ACC)
                             if (self.position - self.next_position) < x_stop:
                                 self.stop_flag = True
@@ -108,6 +111,7 @@ class ComputerForward(GameBar):
         self.next_position = -1
         self.position = MAX_POS_FORWARD / 2
         self.v_bar = 0
+        self.stop_flag = False
 
 
     def check_for_interaction(self, kicker):
@@ -317,42 +321,42 @@ class ComputerForward(GameBar):
                 self.intersection_FORWARD = kicker.ball.pos[Coordinate.Y] + abstand_vertikal
                 if 0 < self.intersection_FORWARD <= COURT_HEIGHT:
                     if 0 < self.intersection_FORWARD <= (40 + MAX_POS_FORWARD):
-                        if ((abs(self.POSITION_ON_BAR_FORWARD_RIGHT - self.intersection_FORWARD) / BAR_SPEED) <= delta_t):
+                        #if ((abs(self.POSITION_ON_BAR_FORWARD_RIGHT - self.intersection_FORWARD) / BAR_SPEED) <= delta_t):
                             self.flag_right = True
 
                     if MAX_POS_FORWARD < self.intersection_FORWARD <= (40 + MAX_POS_FORWARD + FORWARD_DISTANCE_BETWEEN_FIGURES):
-                        if ((abs(self.POSITION_ON_BAR_FORWARD_MIDDLE - self.intersection_FORWARD) / BAR_SPEED) <= delta_t):
+                        #if ((abs(self.POSITION_ON_BAR_FORWARD_MIDDLE - self.intersection_FORWARD) / BAR_SPEED) <= delta_t):
                             self.flag_middle = True
                     if (MAX_POS_FORWARD + FORWARD_DISTANCE_BETWEEN_FIGURES) < self.intersection_FORWARD <= COURT_HEIGHT:
-                        if (abs(self.POSITION_ON_BAR_FORWARD_LEFT - self.intersection_FORWARD) / BAR_SPEED) <= delta_t:
+                        #if (abs(self.POSITION_ON_BAR_FORWARD_LEFT - self.intersection_FORWARD) / BAR_SPEED) <= delta_t:
                             self.flag_left = True
                 else:
                     if self.intersection_FORWARD < 0:
                         self.intersection_FORWARD = -1 * self.intersection_FORWARD
                         if 40 < self.intersection_FORWARD <= (40 + MAX_POS_FORWARD):
-                            if ((abs(self.POSITION_ON_BAR_FORWARD_RIGHT - self.intersection_FORWARD) / BAR_SPEED) <= delta_t):
+                            #if ((abs(self.POSITION_ON_BAR_FORWARD_RIGHT - self.intersection_FORWARD) / BAR_SPEED) <= delta_t):
                                 self.flag_right = True
                         if MAX_POS_FORWARD < self.intersection_FORWARD <= (
                                 40 + MAX_POS_FORWARD + FORWARD_DISTANCE_BETWEEN_FIGURES):
-                            if ((abs(self.POSITION_ON_BAR_FORWARD_MIDDLE - self.intersection_FORWARD) / BAR_SPEED) <= delta_t):
+                            #if ((abs(self.POSITION_ON_BAR_FORWARD_MIDDLE - self.intersection_FORWARD) / BAR_SPEED) <= delta_t):
                                 self.flag_middle = True
                         if (MAX_POS_FORWARD + FORWARD_DISTANCE_BETWEEN_FIGURES) < self.intersection_FORWARD <= (
                                 40 + MAX_POS_FORWARD + 2 * FORWARD_DISTANCE_BETWEEN_FIGURES):
-                            if (abs(self.POSITION_ON_BAR_FORWARD_LEFT - self.intersection_FORWARD) / BAR_SPEED) <= delta_t:
+                            #if (abs(self.POSITION_ON_BAR_FORWARD_LEFT - self.intersection_FORWARD) / BAR_SPEED) <= delta_t:
                                 self.flag_left = True
                     elif self.intersection_FORWARD > COURT_HEIGHT:
                         Differenz = self.intersection_FORWARD - COURT_HEIGHT
                         self.intersection_FORWARD = COURT_HEIGHT - Differenz
                         if 40 < self.intersection_FORWARD <= (40 + MAX_POS_FORWARD):
-                            if ((abs(self.POSITION_ON_BAR_FORWARD_RIGHT - self.intersection_FORWARD) / BAR_SPEED) <= delta_t):
+                            #if ((abs(self.POSITION_ON_BAR_FORWARD_RIGHT - self.intersection_FORWARD) / BAR_SPEED) <= delta_t):
                                 self.flag_right = True
                         if MAX_POS_FORWARD < self.intersection_FORWARD <= (
                                 40 + MAX_POS_FORWARD + FORWARD_DISTANCE_BETWEEN_FIGURES):
-                            if ((abs(self.POSITION_ON_BAR_FORWARD_MIDDLE - self.intersection_FORWARD) / BAR_SPEED) <= delta_t):
+                            #if ((abs(self.POSITION_ON_BAR_FORWARD_MIDDLE - self.intersection_FORWARD) / BAR_SPEED) <= delta_t):
                                 self.flag_middle = True
                         if (MAX_POS_FORWARD + FORWARD_DISTANCE_BETWEEN_FIGURES) < self.intersection_FORWARD <= (
                                 COURT_HEIGHT):
-                            if (abs(self.POSITION_ON_BAR_FORWARD_LEFT - self.intersection_FORWARD) / BAR_SPEED) <= delta_t:
+                            #if (abs(self.POSITION_ON_BAR_FORWARD_LEFT - self.intersection_FORWARD) / BAR_SPEED) <= delta_t:
                                 self.flag_left = True
                 if self.flag_right and self.flag_middle:
                     self.flag_right = False
