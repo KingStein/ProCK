@@ -29,87 +29,15 @@ class ComputerForward(GameBar):
         self.flag_middle = False
         self.flag_left = False
         self.v_bar = 0
-        self.stop_flag = False
+        self.stop_flag = 1
     '''hier fehlen noch Methoden fürs Schießen und Collision der Spieler mit Ball'''
     # Phils scheiß geht weiter
-
-    def move_bar(self):
-        self.next_position = round(self.next_position)
-        self.position = round(self.position)
-        if self.next_position != self.position:
-            if 0 <= self.next_position <= MAX_POS_FORWARD:
-                if self.next_position > self.position:
-                   if self.stop_flag:
-                       self.v_bar = self.v_bar - BAR_ACC * SIMULATION_TIME_STEP
-                       new_temp_pos = self.position + self.v_bar * SIMULATION_TIME_STEP - 0.5 * BAR_ACC * (SIMULATION_TIME_STEP * SIMULATION_TIME_STEP)
-                       self.position = new_temp_pos
-                       if new_temp_pos > self.next_position:
-                           self.position = self.next_position
-                           self.next_position = -1
-                           self.v_bar = 0
-                           self.stop_flag = False
-
-                   else:
-                        if self.v_bar < BAR_SPEED:
-                            self.v_bar = self.v_bar + BAR_ACC * SIMULATION_TIME_STEP
-                            if self.v_bar > BAR_SPEED:
-                                self.v_bar = BAR_SPEED
-                            new_temp_pos = self.position + self.v_bar * SIMULATION_TIME_STEP + 0.5 * BAR_ACC * (SIMULATION_TIME_STEP * SIMULATION_TIME_STEP)
-                            x_stop = (self.v_bar * self.v_bar) / (2 * BAR_ACC)
-                            if (self.next_position - self.position) < x_stop:
-                                self.stop_flag = True
-
-
-                        elif self.v_bar == BAR_SPEED:
-                            new_temp_pos = self.position + self.v_bar * SIMULATION_TIME_STEP
-                            x_stop = (self.v_bar * self.v_bar) / (2 * BAR_ACC)
-                            if (self.next_position - self.position) < x_stop:
-                                self.stop_flag = True
-
-
-                        self.position = new_temp_pos
-
-                elif self.next_position < self.position:
-                    if self.stop_flag:
-                        self.v_bar = self.v_bar + BAR_ACC * SIMULATION_TIME_STEP
-                        new_temp_pos = self.position + self.v_bar * SIMULATION_TIME_STEP + 0.5 * BAR_ACC * (SIMULATION_TIME_STEP * SIMULATION_TIME_STEP)
-                        self.position = new_temp_pos
-                        if new_temp_pos < self.next_position:
-                            self.position = self.next_position
-                            self.next_position = -1
-                            self.v_bar = 0
-                            self.stop_flag = False
-
-                    else:
-                        if self.v_bar >= -BAR_SPEED:
-                            self.v_bar = self.v_bar - BAR_ACC * SIMULATION_TIME_STEP
-                            if self.v_bar < -BAR_SPEED:
-                                self.v_bar = -BAR_SPEED
-                            new_temp_pos = self.position + self.v_bar * SIMULATION_TIME_STEP - 0.5 * BAR_ACC * (SIMULATION_TIME_STEP * SIMULATION_TIME_STEP)
-                            x_stop = (self.v_bar * self.v_bar) / (2 * BAR_ACC)
-                            if (self.position - self.next_position) < x_stop:
-                                self.stop_flag = True
-
-                        elif self.v_bar == BAR_SPEED:
-                            new_temp_pos = self.position + self.v_bar * SIMULATION_TIME_STEP
-                            x_stop = (self.v_bar * self.v_bar) / (2 * BAR_ACC)
-                            if (self.position - self.next_position) < x_stop:
-                                self.stop_flag = True
-
-                        self.position = new_temp_pos
-            else:
-                self.next_position = -1
-                self.v_bar = 0
-        else:
-            self.next_position = -1
-            self.v_bar = 0
-
 
     def reset_bar(self):
         self.next_position = -1
         self.position = MAX_POS_FORWARD / 2
         self.v_bar = 0
-        self.stop_flag = False
+        self.stop_flag = 1
 
 
     def check_for_interaction(self, kicker):
@@ -130,6 +58,57 @@ class ComputerForward(GameBar):
             side_collision = False
             shoot = False
         return shoot, side_collision
+
+
+    def move_bar(self):
+        def calc_v(direction):
+            v = self.v_bar - BAR_ACC * SIMULATION_TIME_STEP * direction
+            if abs(v) > BAR_SPEED:
+                v = BAR_SPEED * -direction
+            return v
+
+        def calc_new_pos(direction):
+            return self.position + self.v_bar * SIMULATION_TIME_STEP - 0.5 * BAR_ACC * (SIMULATION_TIME_STEP * SIMULATION_TIME_STEP) * direction
+
+        self.next_position = round(self.next_position)
+        #self.position = round(self.position)
+        if self.next_position != round(self.position):
+            if 0 <= self.next_position <= MAX_POS_FORWARD:
+
+                if self.next_position > self.position:
+                    direction = -1 * self.stop_flag
+                else:
+                    direction = 1 * self.stop_flag
+
+                new_temp_pos = calc_new_pos(direction)
+                self.v_bar = calc_v(direction)
+
+                x_stop = (self.v_bar * self.v_bar) / (2 * BAR_ACC)
+
+                print("v-bar: {0} new_position: {1:.2f} self.next_pos: {2} x_stop: {3}".format(self.v_bar, new_temp_pos, self.next_position, x_stop))
+
+                if abs(self.next_position - new_temp_pos) < x_stop:
+                    if(self.v_bar == 0):
+                        new_temp_pos = self.next_position
+                    self.stop_flag = -1
+                    self.position = new_temp_pos
+                    if new_temp_pos > self.next_position:
+                        self.position = self.next_position
+
+                else:
+                    
+                    if self.v_bar < BAR_SPEED * direction:
+                        if self.v_bar >= BAR_SPEED * direction:
+                            self.v_bar = BAR_SPEED *direction
+
+                self.position = new_temp_pos
+
+            else:
+                self.next_position = -1
+                self.v_bar = 0
+        else:
+            self.next_position = -1
+            self.v_bar = 0
 
 
     def check_for_shoot(self, kicker):
