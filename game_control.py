@@ -14,7 +14,7 @@ def main():
 
     view = View()
     kicker = Kicker()
-    # human_strategy = HumanStrategy(kicker)
+    human_strategy = HumanStrategy(kicker)
     manual_com_keeper = ManualKeeperController(kicker)
     manual_com_defender = ManualDefenderController(kicker)
     # manual_com_forward = ManualForwardController(kicker)
@@ -49,7 +49,7 @@ def main():
     #         if event.type == pygame.QUIT:
     #             running = False
 
-        # human_strategy.next_move()
+        human_strategy.next_move()
         #manual_com_keeper.move_bar()
         #manual_com_defender.move_bar()
         # manual_com_forward.move_bar()
