@@ -61,7 +61,6 @@ class ComputerForward(GameBar):
 
 
     def move_bar(self):
-        asdfalöskdjfölkj
         def calc_v(direction):
             v = self.v_bar - BAR_ACC * SIMULATION_TIME_STEP * direction
             if abs(v) > BAR_SPEED:

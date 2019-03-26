@@ -92,7 +92,7 @@ class EnvironmentController:
     def __init__(self):
         self.env = Environment()
         self.kicker = Kicker()
-        # self.human_strategy = HumanStrategy(self.kicker)
+        self.human_strategy = HumanStrategy(self.kicker)
         # self.action_handler = ActionHandler(self.kicker)
         self.create_view = False
         self.view = None
@@ -127,6 +127,8 @@ class EnvironmentController:
         # self.action_handler.move_bar(action)
         self.kicker.computer_forward.next_position = action
         self.kicker.computer_forward.move_bar()
+
+        self.human_strategy.next_move()
 
         self.kicker.update_model()
         self.env.update(self.kicker)

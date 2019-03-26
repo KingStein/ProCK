@@ -86,13 +86,14 @@ class Ball:
 
         self.speed = KICK_OFF_SPEED
 
-    def get_gradient_goal_to_ball(self):
-        delta_y = COURT_HEIGHT / 2 - self.pos[Coordinate.Y]
-        delta_x = COURT_WIDTH - self.pos[Coordinate.X]
-        return delta_y / delta_x
-
-    def get_x_distance_human_keeper_to_ball(self):
-        return COURT_WIDTH - BAR_POSITION_KEEPER - self.pos[Coordinate.X]
-
-    def get_x_distance_human_defender_to_ball(self):
-        return COURT_WIDTH - BAR_POSITION_DEFENDER - self.pos[Coordinate.X]
+#    def get_gradient_goal_to_ball(self):
+#        delta_y = COURT_HEIGHT / 2 - self.pos[Coordinate.Y]
+#        delta_x = COURT_WIDTH - self.pos[Coordinate.X]
+#        return delta_y / delta_x
+#
+#    def get_x_distance_human_keeper_to_ball(self):
+#        return COURT_WIDTH - BAR_POSITION_KEEPER - self.pos[Coordinate.X]
+#
+#    def get_x_distance_human_defender_to_ball(self):
+#        return COURT_WIDTH - BAR_POSITION_DEFENDER - self.pos[Coordinate.X]
+#
