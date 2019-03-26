@@ -12,11 +12,11 @@ def main():
 
     clock = pygame.time.Clock()
 
-    total_episodes = 20 + 1
+    total_episodes = 10 + 1
     env = Env.EnvironmentController()
 
     # save Q-Table:
-    q_table = np.load('/home/prock/data/q_table_07_01.npy')
+    q_table = np.load('/home/prock/ProCK/data/q_table_07_01.npy')
 
     for i in range(0, COURT_HEIGHT - 2*BALL_RADIUS, 10):
         plt.imshow(np.transpose(q_table[i*91:i*91+10*90, :]), origin='lower')
