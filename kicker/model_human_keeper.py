@@ -6,6 +6,7 @@ from kicker.CONST_BALL import Coordinate
 from kicker.CONST_SIMULATION import SIMULATION_TIME_STEP
 from kicker.CONST_SIMULATION import SHOOT_SPEED
 from kicker.CONST_SIMULATION import BAR_SPEED
+from kicker.CONST_SIMULATION import BAR_ACC
 
 
 class HumanKeeper(GameBar):
@@ -26,7 +27,7 @@ class HumanKeeper(GameBar):
         self.next_position = round(self.next_position)
         self.position = round(self.position)
         if self.next_position != self.position:
-            if 0 <= self.next_position <= MAX_POS_KEEPER:
+            if 0 <= self.next_position <= MAX_POS_DEFENDER:
                 if self.next_position > self.position:
                     new_temp_pos = self.position + BAR_SPEED * SIMULATION_TIME_STEP
                     if new_temp_pos > self.next_position:

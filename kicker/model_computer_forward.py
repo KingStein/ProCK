@@ -83,9 +83,9 @@ class ComputerForward(GameBar):
                 new_temp_pos = calc_new_pos(direction)
                 self.v_bar = calc_v(direction)
 
-                x_stop = (self.v_bar * self.v_bar) / (2 * BAR_ACC)
+                x_stop = (self.v_bar * self.v_bar) / (2 * BAR_ACC) + 2
 
-                print("v-bar: {0} new_position: {1:.2f} self.next_pos: {2} x_stop: {3}".format(self.v_bar, new_temp_pos, self.next_position, x_stop))
+
 
                 if abs(self.next_position - new_temp_pos) < x_stop:
                     if(self.v_bar == 0):
@@ -102,6 +102,7 @@ class ComputerForward(GameBar):
                             self.v_bar = BAR_SPEED *direction
 
                 self.position = new_temp_pos
+                print("v-bar: {0} new_position: {1:.2f} self.next_pos: {2} x_stop: {3}".format(self.v_bar, new_temp_pos, self.next_position, x_stop))
 
             else:
                 self.next_position = -1

@@ -29,7 +29,7 @@ class Kicker:
         self.ball = model_ball.Ball()
         self.ball.kick_off()
         self.human_keeper = model_human_keeper.HumanKeeper()
-        self.human_defender = model_human_defender.HumanDefender()
+        #self.human_defender = model_human_defender.HumanDefender()
         # self.human_midfielder = model_human_midfielder.HumanMidfielder()
         # self.human_forward = model_human_forward.HumanForward()
         self.computer_keeper = model_computer_keeper.ComputerKeeper()
@@ -44,9 +44,9 @@ class Kicker:
         self.terminal_state = False
         self.ball.move()
         self.human_keeper.check_for_interaction(self)
-        self.human_defender.check_for_interaction(self)
+        #self.human_defender.check_for_interaction(self)
         self.computer_keeper.check_for_interaction(self)
-        self.computer_defender.check_for_interaction(self)
+        #self.computer_defender.check_for_interaction(self)
 
         """Phils scheiß"""
         self.computer_forward.check_for_interaction(self)
