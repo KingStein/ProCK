@@ -96,7 +96,6 @@ class ComputerForward(GameBar):
                         self.position = self.next_position
 
                 else:
-                    
                     if self.v_bar < BAR_SPEED * direction:
                         if self.v_bar >= BAR_SPEED * direction:
                             self.v_bar = BAR_SPEED *direction
