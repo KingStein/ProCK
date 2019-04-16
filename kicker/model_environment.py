@@ -79,7 +79,7 @@ class Environment(Observation):
     #         self.__reward = -0.1
 
     def calc_reward(self, kicker):
-        if kicker.ball.pos[Coordinate.X] < BAR_POSITION_FORWARD:
+        if kicker.ball.pos[Coordinate.X] < BAR_POSITION_FORWARD_COMPUTER:
             self.__reward += -100
         elif kicker.terminal_state:
             dist_to_middle = abs(kicker.ball.pos[Coordinate.Y]-(COURT_HEIGHT/2))

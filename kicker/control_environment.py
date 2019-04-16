@@ -4,6 +4,7 @@ import random
 from kicker.CONST_SIMULATION import *
 from kicker.CONST_KICKER import *
 from kicker.CONST_BALL import *
+from kicker.CONST_GAME_FIGURES import *
 
 from kicker.model_environment import Environment
 from kicker.view_game import View
@@ -128,7 +129,7 @@ class EnvironmentController:
         self.kicker.computer_forward.next_position = action
         self.kicker.computer_forward.move_bar()
 
-        self.human_strategy.next_move()
+        #self.human_strategy.next_move()
 
         self.kicker.update_model()
         self.env.update(self.kicker)
@@ -138,7 +139,7 @@ class EnvironmentController:
         return [self.env.get_observation(), self.env.get_reward(), self.env.get_done()]
 
     def check_for_done(self):
-        if self.kicker.ball.new_pos[Coordinate.X] < BAR_POSITION_FORWARD:
+        if self.kicker.ball.new_pos[Coordinate.X] < BAR_POSITION_FORWARD_COMPUTER:
             self.env.set_done(True)
         elif self.kicker.terminal_state:
 

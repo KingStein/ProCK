@@ -278,12 +278,7 @@ class ComputerForward(GameBar):
             shoot_offset = self.position + self.POSITION_ON_BAR_FORWARD_LEFT - intersection
         else:
             raise ValueError('Uebergabeparameter (teammate) in model.HumanDefender.py falsch (Fkt. shoot())')
-        kicker.ball.new_angle = ((math.pi / 3) * (- shoot_offset / (FIGURE_FOOT_HEIGHT / 2 + BALL_RADIUS)))
-        kicker.ball.speed = SHOOT_SPEED
-        kicker.ball.new_pos[Coordinate.Y] = (intersection + math.sin(kicker.ball.new_angle) * kicker.ball.speed *
-                                             (SIMULATION_TIME_STEP - delta_t_collision))
-        kicker.ball.new_pos[Coordinate.X] = (self.X_REFLECTION_PLANE + math.cos(kicker.ball.new_angle) *
-                                             kicker.ball.speed * (SIMULATION_TIME_STEP - delta_t_collision))
+
 
 
 

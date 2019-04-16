@@ -46,30 +46,30 @@ class View:
     def display_human_figures(self, hum_keeper=None, hum_defender=None, hum_midfielder=None, hum_forward=None):
         if hum_keeper:
             self.draw_human_keeper(HUMAN_KEEPER_OFFSET_X,
-                                   round(hum_keeper.position) + HUMAN_KEEPER_OFFSET_Y)
+                                   round(hum_keeper.y_position) + HUMAN_KEEPER_OFFSET_Y)
         if hum_defender:
             self.draw_human_defender(HUMAN_DEFENDER_OFFSET_X,
-                                     round(hum_defender.position) + HUMAN_DEFENDER_OFFSET_Y)
+                                     round(hum_defender.y_position) + HUMAN_DEFENDER_OFFSET_Y)
         if hum_midfielder:
             self.draw_human_midfielder(HUMAN_MIDFIELDER_OFFSET_X,
-                                       round(hum_midfielder.position) + HUMAN_MIDFIELDER_OFFSET_Y)
+                                       round(hum_midfielder.y_position) + HUMAN_MIDFIELDER_OFFSET_Y)
         if hum_forward:
             self.draw_human_forward(HUMAN_FORWARD_OFFSET_X,
-                                    round(hum_forward.position) + HUMAN_FORWARD_OFFSET_Y)
+                                    round(hum_forward.y_position) + HUMAN_FORWARD_OFFSET_Y)
 
     def display_computer_figures(self, com_keeper=None, com_defender=None, com_midfielder=None, com_forward=None):
         if com_keeper:
             self.draw_computer_keeper(COMPUTER_KEEPER_OFFSET_X,
-                                      round(com_keeper.position) + COMPUTER_KEEPER_OFFSET_Y)
+                                      round(com_keeper.y_position) + COMPUTER_KEEPER_OFFSET_Y)
         if com_defender:
             self.draw_computer_defender(COMPUTER_DEFENDER_OFFSET_X,
-                                        round(com_defender.position) + COMPUTER_DEFENDER_OFFSET_Y)
+                                        round(com_defender.y_position) + COMPUTER_DEFENDER_OFFSET_Y)
         if com_midfielder:
             self.draw_computer_midfielder(COMPUTER_MIDFIELDER_OFFSET_X,
-                                          round(com_midfielder.position) + COMPUTER_MIDFIELDER_OFFSET_Y)
+                                          round(com_midfielder.y_position) + COMPUTER_MIDFIELDER_OFFSET_Y)
         if com_forward:
             self.draw_computer_forward(COMPUTER_FORWARD_OFFSET_X,
-                                       round(com_forward.position) + COMPUTER_FORWARD_OFFSET_Y)
+                                       round(com_forward.y_position) + COMPUTER_FORWARD_OFFSET_Y)
 
     def draw_computer_figure(self, x_pos, y_pos):
         pygame.draw.rect(self.screen, BLACK, [x_pos - FIGURE_FOOT_WIDTH, y_pos-FIGURE_FOOT_HEIGHT / 2,
@@ -180,7 +180,9 @@ class View:
         #                               com_midfielder=kicker.computer_midfielder, com_forward=kicker.computer_forward)
         '''Anzeigen von Torward und Verteidigung-Spielstangen und Spielfiguren'''
         self.display_gamer_bars(keeper=True, defender=True, forward=True)
-        self.display_human_figures(hum_keeper=kicker.human_keeper, hum_defender=kicker.human_defender)
-        self.display_computer_figures(com_keeper=kicker.computer_keeper, com_defender=kicker.computer_defender, com_forward=kicker.computer_forward)
+        #self.display_human_figures(hum_keeper=kicker.human_keeper, hum_defender=kicker.human_defender)
+        #self.display_computer_figures(com_keeper=kicker.computer_keeper, com_defender=kicker.computer_defender, com_forward=kicker.computer_forward)
+        self.display_computer_figures(com_forward=kicker.computer_forward)
+
         self.display_goal()
         self.display_score(kicker.get_score())

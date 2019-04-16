@@ -103,7 +103,9 @@ class ComputerDefender(GameBar):
                                                          math.sin(kicker.ball.new_angle) * kicker.ball.speed *
                                                          (SIMULATION_TIME_STEP - delta_t_collision))
                     side_collision = True
-                else:
+                else:self.position + self.POSITION_ON_BAR_DEFENDER_LEFT -
+                                                                self.Y_OFFSET_REFLECTION_PLANE -
+                                                                kicker.ball.pos[Coordinate.Y]
                     side_collision = False
             elif kicker.ball.pos[Coordinate.Y] < self.position + self.POSITION_ON_BAR_DEFENDER_RIGHT \
                     - self.Y_OFFSET_REFLECTION_PLANE < kicker.ball.new_pos[Coordinate.Y]:

@@ -3,8 +3,7 @@ import math
 
 from kicker.CONST_KICKER import COURT_WIDTH
 from kicker.CONST_KICKER import COURT_HEIGHT
-from kicker.CONST_GAME_FIGURES import BAR_POSITION_KEEPER
-from kicker.CONST_GAME_FIGURES import BAR_POSITION_DEFENDER
+from kicker.CONST_GAME_FIGURES import *
 from kicker.CONST_BALL import *
 from kicker.CONST_SIMULATION import *
 
@@ -33,6 +32,7 @@ class Ball:
         self.pos[Coordinate.X] = self.new_pos[Coordinate.X]
         self.pos[Coordinate.Y] = self.new_pos[Coordinate.Y]
         self.angle = self.new_angle
+
 
     def kick_off(self):
         """Ball startet immer von der Mitte mit einem variablen Winkel"""
